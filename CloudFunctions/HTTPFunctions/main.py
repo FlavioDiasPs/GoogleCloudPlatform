@@ -1,6 +1,15 @@
 import sys
+
+# [START functions_helloworld_http]
+# [START functions_http_content]
 from flask import escape
 
+# [END functions_helloworld_http]
+# [END functions_http_content]
+
+
+# [START functions_tips_terminate]
+# [START functions_helloworld_get]
 def hello_get(request):
     """HTTP Cloud Function.
     Args:
@@ -12,6 +21,7 @@ def hello_get(request):
         <http://flask.pocoo.org/docs/0.12/api/#flask.Flask.make_response>.
     """
     return 'Hello, World!'
+# [END functions_helloworld_get]
 
 
 # [START functions_helloworld_background]
@@ -128,26 +138,6 @@ def hello_method(request):
     else:
         return abort(405)
 # [END functions_http_methods]
-
-
-def hello_error_1(request):
-    # [START functions_helloworld_error]
-    # This WILL be reported to Stackdriver Error
-    # Reporting, and WILL NOT show up in logs or
-    # terminate the function.
-    from google.cloud import error_reporting
-    client = error_reporting.Client()
-
-    try:
-        raise RuntimeError('I failed you')
-    except RuntimeError:
-        client.report_exception()
-
-    # This WILL be reported to Stackdriver Error Reporting,
-    # and WILL terminate the function
-    raise RuntimeError('I failed you')
-
-    # [END functions_helloworld_error]
 
 
 def hello_error_2(request):
